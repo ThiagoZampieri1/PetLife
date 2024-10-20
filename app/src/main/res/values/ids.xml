@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tv_nome" type="id" />
+    <item name="tv_data_nascimento" type="id" />
+    <item name="tv_tipo" type="id" />
+    <item name="tv_cor" type="id" />
+    <item name="tv_porte" type="id" />
+    <item name="tv_ultima_ida_veterinario" type="id" />
+    <item name="tv_ultima_vacinacao" type="id" />
+
+</resources>
