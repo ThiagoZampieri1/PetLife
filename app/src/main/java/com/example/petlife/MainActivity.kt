@@ -1,12 +1,13 @@
 package com.example.petlife
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.petlife.ui.Pet
 
-class MainActivity: AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     private lateinit var tvNome: TextView
     private lateinit var tvDataNascimento: TextView
     private lateinit var tvTipo: TextView
@@ -45,8 +46,15 @@ class MainActivity: AppCompatActivity() {
         updatePetInfo()
 
         findViewById<Button>(R.id.btn_alterar_dados_pet).setOnClickListener {
-        }
+            val intent = Intent(this, EditPetActivity::class.java)
 
+            intent.putExtra("nome", pet.nome)
+            intent.putExtra("data_nascimento", pet.dataNascimento)
+            intent.putExtra("tipo", pet.tipo)
+            intent.putExtra("cor", pet.cor)
+            intent.putExtra("porte", pet.porte)
+            startActivityForResult(intent, REQUEST_CODE_EDIT_PET)
+        }
     }
 
     private fun updatePetInfo() {
@@ -58,5 +66,23 @@ class MainActivity: AppCompatActivity() {
         tvUltimaIdaVeterinario.text = "Última ida ao veterinário: ${pet.ultimaIdaVeterinario}"
         tvUltimaIdaPetshop.text = "Última ida ao petshop: ${pet.ultimaIdaPetshop}"
         tvUltimaVacinacao.text = "Última vacinação: ${pet.ultimaVacinacao}"
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_EDIT_PET && resultCode == RESULT_OK) {
+
+            pet.nome = data?.getStringExtra("nome") ?: pet.nome
+            pet.dataNascimento = data?.getStringExtra("data_nascimento") ?: pet.dataNascimento
+            pet.tipo = data?.getStringExtra("tipo") ?: pet.tipo
+            pet.cor = data?.getStringExtra("cor") ?: pet.cor
+            pet.porte = data?.getStringExtra("porte") ?: pet.porte
+
+            updatePetInfo()
+        }
+    }
+
+    companion object {
+        const val REQUEST_CODE_EDIT_PET = 1
     }
 }
