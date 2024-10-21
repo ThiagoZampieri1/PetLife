@@ -47,13 +47,18 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btn_alterar_dados_pet).setOnClickListener {
             val intent = Intent(this, EditPetActivity::class.java)
-
             intent.putExtra("nome", pet.nome)
             intent.putExtra("data_nascimento", pet.dataNascimento)
             intent.putExtra("tipo", pet.tipo)
             intent.putExtra("cor", pet.cor)
             intent.putExtra("porte", pet.porte)
             startActivityForResult(intent, REQUEST_CODE_EDIT_PET)
+        }
+
+        findViewById<Button>(R.id.btn_alterar_dados_veterinario).setOnClickListener {
+            val intent = Intent(this, EditLastVeterinaryVisitActivity::class.java)
+            intent.putExtra("ultima_ida_veterinario", pet.ultimaIdaVeterinario)
+            startActivityForResult(intent, REQUEST_CODE_EDIT_VETERINARY_VISIT)
         }
     }
 
@@ -71,7 +76,6 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_EDIT_PET && resultCode == RESULT_OK) {
-
             pet.nome = data?.getStringExtra("nome") ?: pet.nome
             pet.dataNascimento = data?.getStringExtra("data_nascimento") ?: pet.dataNascimento
             pet.tipo = data?.getStringExtra("tipo") ?: pet.tipo
@@ -79,10 +83,14 @@ class MainActivity : AppCompatActivity() {
             pet.porte = data?.getStringExtra("porte") ?: pet.porte
 
             updatePetInfo()
+        } else if (requestCode == REQUEST_CODE_EDIT_VETERINARY_VISIT && resultCode == RESULT_OK) {
+            pet.ultimaIdaVeterinario = data?.getStringExtra("nova_data") ?: pet.ultimaIdaVeterinario
+            updatePetInfo()
         }
     }
 
     companion object {
         const val REQUEST_CODE_EDIT_PET = 1
+        const val REQUEST_CODE_EDIT_VETERINARY_VISIT = 2
     }
 }
