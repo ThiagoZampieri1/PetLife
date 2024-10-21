@@ -7,5 +7,8 @@
     <item name="tv_porte" type="id" />
     <item name="tv_ultima_ida_veterinario" type="id" />
     <item name="tv_ultima_vacinacao" type="id" />
-
+    <item name="btn_alterar_dados_pet" type="id" />
+    <item name="btn_alterar_dados_veterinario" type="id" />
+    <item name="btn_alterar_dados_vacinacao" type="id" />
+    <item name="btn_alterar_dados_petshop" type="id" />
 </resources>

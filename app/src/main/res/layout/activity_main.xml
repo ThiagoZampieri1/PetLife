@@ -73,4 +73,10 @@
         android:layout_height="wrap_content"
         android:text="Alterar Última Vacinação" />
 
+    <Button
+        android:id="@+id/btn_alterar_dados_petshop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Alterar Última Ida ao Petshop" />
+
 </LinearLayout>
