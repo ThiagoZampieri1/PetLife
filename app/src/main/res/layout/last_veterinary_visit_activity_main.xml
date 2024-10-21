@@ -6,11 +6,26 @@
     android:padding="16dp">
 
     <EditText
+        android:id="@+id/et_site_do_veterinario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Site do veterinário"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/et_telefone_do_veterinario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Telefone do veterinário"
+        android:inputType="phone" />
+
+    <EditText
         android:id="@+id/et_ultima_ida_veterinario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Última ida ao veterinário"
         android:inputType="date" />
+
 
     <Button
         android:id="@+id/btn_salvar"

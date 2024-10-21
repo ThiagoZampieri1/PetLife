@@ -44,6 +44,18 @@
         android:text="Última ida ao veterinário: " />
 
     <TextView
+        android:id="@+id/tv_telefone_veterinario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telefone do veterinário: " />
+
+    <TextView
+        android:id="@+id/tv_site_veterinario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Site do veterinário: " />
+
+    <TextView
         android:id="@+id/tv_ultima_ida_petshop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,5 +90,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Alterar Última Ida ao Petshop" />
+
+    <Button
+        android:id="@+id/btn_ligar_veterinario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ligar para Veterinário" />
+
+
+    <Button
+        android:id="@+id/btn_site_veterinario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Entrar no site do Veterinário" />
+
 
 </LinearLayout>

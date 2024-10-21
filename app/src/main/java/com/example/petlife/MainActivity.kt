@@ -1,6 +1,7 @@
 package com.example.petlife
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvUltimaIdaVeterinario: TextView
     private lateinit var tvUltimaIdaPetshop: TextView
     private lateinit var tvUltimaVacinacao: TextView
+    private lateinit var tvSiteVeterinario: TextView
+    private lateinit var tvTelefoneVeterinario: TextView
 
     private lateinit var pet: Pet
 
@@ -31,6 +34,9 @@ class MainActivity : AppCompatActivity() {
         tvUltimaIdaVeterinario = findViewById(R.id.tv_ultima_ida_veterinario)
         tvUltimaIdaPetshop = findViewById(R.id.tv_ultima_ida_petshop)
         tvUltimaVacinacao = findViewById(R.id.tv_ultima_vacinacao)
+        tvSiteVeterinario = findViewById(R.id.tv_site_veterinario)
+
+        tvTelefoneVeterinario = findViewById(R.id.tv_telefone_veterinario)
 
         pet = Pet(
             nome = "Cher",
@@ -40,7 +46,9 @@ class MainActivity : AppCompatActivity() {
             porte = "Grande",
             ultimaIdaVeterinario = "15/08/2023",
             ultimaIdaPetshop = "10/09/2023",
-            ultimaVacinacao = "20/07/2023"
+            ultimaVacinacao = "20/07/2023",
+            siteVeterinario = "https://google.com.br",
+            telefoneVeterinario = "5516997175632"
         )
 
         updatePetInfo()
@@ -58,6 +66,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_alterar_dados_veterinario).setOnClickListener {
             val intent = Intent(this, EditLastVeterinaryVisitActivity::class.java)
             intent.putExtra("ultima_ida_veterinario", pet.ultimaIdaVeterinario)
+            intent.putExtra("site_veterinario", pet.siteVeterinario)
+            intent.putExtra("telefone_veterinario", pet.telefoneVeterinario)
+
             startActivityForResult(intent, REQUEST_CODE_EDIT_VETERINARY_VISIT)
         }
 
@@ -72,6 +83,17 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("ultima_ida_petshop", pet.ultimaIdaPetshop)
             startActivityForResult(intent, REQUEST_CODE_EDIT_PETSHOP_VISIT)
         }
+
+        findViewById<Button>(R.id.btn_ligar_veterinario).setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:${pet.telefoneVeterinario}")
+            startActivityForResult(intent, REQUEST_CODE_PHONE_CALL)
+        }
+
+        findViewById<Button>(R.id.btn_site_veterinario).setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(pet.siteVeterinario))
+            startActivityForResult(intent, REQUEST_CODE_SITE_CALL)
+        }
     }
 
     private fun updatePetInfo() {
@@ -83,6 +105,8 @@ class MainActivity : AppCompatActivity() {
         tvUltimaIdaVeterinario.text = "Última ida ao veterinário: ${pet.ultimaIdaVeterinario}"
         tvUltimaIdaPetshop.text = "Última ida ao petshop: ${pet.ultimaIdaPetshop}"
         tvUltimaVacinacao.text = "Última vacinação: ${pet.ultimaVacinacao}"
+        tvSiteVeterinario.text = "Site do veterinário: ${pet.siteVeterinario}"
+        tvTelefoneVeterinario.text = "Telefone do veterinário: ${pet.telefoneVeterinario}"
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -97,6 +121,8 @@ class MainActivity : AppCompatActivity() {
             updatePetInfo()
         } else if (requestCode == REQUEST_CODE_EDIT_VETERINARY_VISIT && resultCode == RESULT_OK) {
             pet.ultimaIdaVeterinario = data?.getStringExtra("nova_data") ?: pet.ultimaIdaVeterinario
+            pet.siteVeterinario = data?.getStringExtra("novo_site") ?: pet.siteVeterinario
+            pet.telefoneVeterinario = data?.getStringExtra("novo_telefone") ?: pet.telefoneVeterinario
             updatePetInfo()
         } else if (requestCode == REQUEST_CODE_EDIT_VACCINATION && resultCode == RESULT_OK) {
             pet.ultimaVacinacao = data?.getStringExtra("nova_data") ?: pet.ultimaVacinacao
@@ -112,5 +138,7 @@ class MainActivity : AppCompatActivity() {
         const val REQUEST_CODE_EDIT_VETERINARY_VISIT = 2
         const val REQUEST_CODE_EDIT_VACCINATION = 3
         const val REQUEST_CODE_EDIT_PETSHOP_VISIT = 4
+        const val REQUEST_CODE_PHONE_CALL = 5
+        const val REQUEST_CODE_SITE_CALL = 6
     }
 }

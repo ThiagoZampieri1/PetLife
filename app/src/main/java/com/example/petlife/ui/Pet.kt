@@ -8,5 +8,7 @@ data class Pet(
     var porte: String,
     var ultimaIdaVeterinario: String,
     var ultimaIdaPetshop: String,
-    var ultimaVacinacao: String
+    var ultimaVacinacao: String,
+    var siteVeterinario: String,
+    var telefoneVeterinario: String
 )
