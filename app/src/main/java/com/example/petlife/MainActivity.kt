@@ -60,6 +60,12 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("ultima_ida_veterinario", pet.ultimaIdaVeterinario)
             startActivityForResult(intent, REQUEST_CODE_EDIT_VETERINARY_VISIT)
         }
+
+        findViewById<Button>(R.id.btn_alterar_dados_vacinacao).setOnClickListener {
+            val intent = Intent(this, EditLastVaccinationActivity::class.java)
+            intent.putExtra("ultima_vacinacao", pet.ultimaVacinacao)
+            startActivityForResult(intent, REQUEST_CODE_EDIT_VACCINATION)
+        }
     }
 
     private fun updatePetInfo() {
@@ -86,11 +92,15 @@ class MainActivity : AppCompatActivity() {
         } else if (requestCode == REQUEST_CODE_EDIT_VETERINARY_VISIT && resultCode == RESULT_OK) {
             pet.ultimaIdaVeterinario = data?.getStringExtra("nova_data") ?: pet.ultimaIdaVeterinario
             updatePetInfo()
+        } else if (requestCode == REQUEST_CODE_EDIT_VACCINATION && resultCode == RESULT_OK) {
+            pet.ultimaVacinacao = data?.getStringExtra("nova_data") ?: pet.ultimaVacinacao
+            updatePetInfo()
         }
     }
 
     companion object {
         const val REQUEST_CODE_EDIT_PET = 1
         const val REQUEST_CODE_EDIT_VETERINARY_VISIT = 2
+        const val REQUEST_CODE_EDIT_VACCINATION = 3
     }
 }
